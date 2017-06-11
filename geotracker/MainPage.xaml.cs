@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using Plugin.Geolocator;
+﻿using System.Diagnostics;
 using Xamarin.Forms;
 
 namespace geotracker
@@ -16,20 +13,8 @@ namespace geotracker
         void StartTracking_Clicked(object sender, System.EventArgs e)
         {
             Debug.WriteLine("Starting tracking...");
-            GetGeoData();
+            var trip = new TrackingSession();
+            trip.StartTracking();
         }
-
-        async void GetGeoData()
-        {
-			var locator = CrossGeolocator.Current;
-			locator.DesiredAccuracy = 50;
-
-			var position = await locator.GetPositionAsync(10000);
-
-			Debug.WriteLine("Position Status: {0}", position.Timestamp);
-			Debug.WriteLine("Position Latitude: {0}", position.Latitude);
-			Debug.WriteLine("Position Longitude: {0}", position.Longitude);
-        }
-
     }
 }
