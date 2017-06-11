@@ -8,7 +8,7 @@ namespace geotracker
         {
             InitializeComponent();
 
-            MainPage = new geotrackerPage();
+            MainPage = new MainPage();
         }
 
         protected override void OnStart()
