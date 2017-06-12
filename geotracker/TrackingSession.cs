@@ -10,13 +10,21 @@ namespace geotracker
     public class TrackingSession
     {
         public List<Position> positions = new List<Position>();
+        private bool _isTracking;
 
         public void StartTracking()
         {
+            _isTracking = true;
+
             Device.StartTimer(TimeSpan.FromSeconds(10), () => {
                 LogNewPosition();
-                return true;
+                return _isTracking;
             });
+        }
+
+        public void StopTracking()
+        {
+            _isTracking = false;
         }
 
         private async void LogNewPosition()
@@ -25,7 +33,7 @@ namespace geotracker
 			locator.DesiredAccuracy = 50;
 
 			var position = await locator.GetPositionAsync(10000);
-             
+
             positions.Add(position);
 
             Debug.WriteLine(position.Latitude + ", " + position.Longitude);
