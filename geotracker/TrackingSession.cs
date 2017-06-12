@@ -30,16 +30,27 @@ namespace geotracker
         public async Task StopTracking()
         {
             _isTracking = false;
+            var xml = SerializeToXml();
+            string filename = "trip-" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xml";
+            await SaveXmlFile(filename, xml.ToString());
+            }
 
-            var xml = new XElement("Positions", positions.Select(x => new XElement("position",
-                                                                                   new XAttribute("latitude", x.Latitude),
-                                                                                   new XAttribute("logitude", x.Longitude),
-                                                                                   new XAttribute("heading", x.Heading),
-                                                                                   new XAttribute("altitude", x.Altitude))));
+        private XElement SerializeToXml()
+        {
+			var xml = new XElement("Positions", positions.Select(x => new XElement("position",
+																				   new XAttribute("latitude", x.Latitude),
+																				   new XAttribute("logitude", x.Longitude),
+																				   new XAttribute("heading", x.Heading),
+																				   new XAttribute("altitude", x.Altitude))));
 
+            return xml;
+        }
+
+        private async Task SaveXmlFile(string fileName, string xml)
+        {
 			IFolder folder = await FileSystem.Current.LocalStorage.CreateFolderAsync("GeotrackingFiles", CreationCollisionOption.OpenIfExists);
-			IFile file = await folder.CreateFileAsync("trip.txt", CreationCollisionOption.ReplaceExisting);
-            await file.WriteAllTextAsync(xml.ToString());
+			IFile file = await folder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
+			await file.WriteAllTextAsync(xml);
         }
 
         private async void LogNewPosition()
