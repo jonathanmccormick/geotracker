@@ -5,6 +5,8 @@ namespace geotracker
 {
     public partial class MainPage : ContentPage
     {
+        TrackingSession trip;
+
         public MainPage()
         {
             InitializeComponent();
@@ -17,11 +19,12 @@ namespace geotracker
                 StartStopTracking.Text = "Stop tracking";
 
 				Debug.WriteLine("Starting tracking...");
-				var trip = new TrackingSession();
+				trip = new TrackingSession();
 				trip.StartTracking();
             }
             else if (StartStopTracking.Text == "Stop tracking")
             {
+                trip.StopTracking();
                 StartStopTracking.Text = "Start tracking";
                 Debug.WriteLine("Stopped");
             }
