@@ -10,11 +10,21 @@ namespace geotracker
             InitializeComponent();
         }
 
-        void StartTracking_Clicked(object sender, System.EventArgs e)
+        void StartStopTracking_Clicked(object sender, System.EventArgs e)
         {
-            Debug.WriteLine("Starting tracking...");
-            var trip = new TrackingSession();
-            trip.StartTracking();
+            if (StartStopTracking.Text == "Start tracking")
+            {
+                StartStopTracking.Text = "Stop tracking";
+
+				Debug.WriteLine("Starting tracking...");
+				var trip = new TrackingSession();
+				trip.StartTracking();
+            }
+            else if (StartStopTracking.Text == "Stop tracking")
+            {
+                StartStopTracking.Text = "Start tracking";
+                Debug.WriteLine("Stopped");
+            }
         }
     }
 }

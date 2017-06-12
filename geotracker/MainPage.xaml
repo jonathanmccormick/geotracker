@@ -3,8 +3,9 @@
 	<ContentPage.Content>
         <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand">
             <Button 
+                x:Name="StartStopTracking"
                 Text="Start tracking" 
-                Clicked="StartTracking_Clicked"
+                Clicked="StartStopTracking_Clicked"
                 VerticalOptions="Center" HorizontalOptions="Center"/>
         </StackLayout>
 	</ContentPage.Content>
